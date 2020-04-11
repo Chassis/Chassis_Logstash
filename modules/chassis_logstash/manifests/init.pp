@@ -15,16 +15,15 @@ class chassis_logstash (
 		# Allow override from config.yaml
 		$options = deep_merge($defaults, $config[logstash])
 
-		notice($options[version])
-
 		class { 'elastic_stack::repo':
 			version => Integer($options[repo_version]),
-		notify  => Exec['apt_update']
+			notify  => Exec['apt_update']
 		}
 
 		class { 'logstash':
 			version => $options[version],
-			ensure  => $package
+			ensure  => $package,
+			require => Class['java']
 		}
 	}
 }

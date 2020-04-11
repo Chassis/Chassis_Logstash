@@ -16,3 +16,6 @@
 [submodule "modules/java"]
 	path = modules/java
 	url = https://github.com/puppetlabs/puppetlabs-java.git
+[submodule "modules/archive"]
+	path = modules/archive
+	url = https://github.com/voxpupuli/puppet-archive.git
