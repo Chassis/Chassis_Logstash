@@ -2,9 +2,13 @@ class chassis_logstash (
 	$config
 ) {
 	if ( ! empty( $config[disabled_extensions] ) and 'chassis/chassis_logstash' in $config[disabled_extensions] ) {
-		$package = absent
+		class { 'logstash':
+			ensure => absent
+		}
+		class { 'java-common':
+			ensure => absent
+		}
 	} else {
-		$package = present
 		$defaults = {
 			'repo_version' => '7',
 			'version'      =>  '1:7.6.2-1'
@@ -22,7 +26,7 @@ class chassis_logstash (
 
 		class { 'logstash':
 			version => $options[version],
-			ensure  => $package,
+			ensure  => present,
 			require => Class['java']
 		}
 	}
