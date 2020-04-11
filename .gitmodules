@@ -10,3 +10,9 @@
 [submodule "modules/elastic_stack"]
 	path = modules/elastic_stack
 	url = https://github.com/elastic/puppet-elastic-stack.git
+[submodule "modules/logstash"]
+	path = modules/logstash
+	url = https://github.com/elastic/puppet-logstash.git
+[submodule "modules/java"]
+	path = modules/java
+	url = https://github.com/puppetlabs/puppetlabs-java.git
