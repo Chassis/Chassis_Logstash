@@ -11,13 +11,29 @@ class chassis_logstash (
 	} else {
 		$defaults = {
 			'repo_version' => '7',
-			'version'      =>  '1:7.6.2-1'
+			'version'      =>  '1:7.6.2-1',
+			# Ensure Java doesn't try to eat all the RAMs by default
+			'memory'       => 256,
+			'jvm_options'  => [],
 		}
 
 		include ::java
 
 		# Allow override from config.yaml
 		$options = deep_merge($defaults, $config[logstash])
+
+		# Ensure memory is an integer
+		$memory = Integer($options[memory])
+
+		# Create default jvm_options using memory setting
+		$jvm_options_defaults = [
+			"-Xms${memory}m",
+			"-Xmx${memory}m",
+
+		]
+
+		# Merge JVM options using our custom function
+		$jvm_options = merge_jvm_options($options[jvm_options], $jvm_options_defaults)
 
 		if ! defined(Class['Elastic_stack::Repo']) {
 				class { 'elastic_stack::repo':
