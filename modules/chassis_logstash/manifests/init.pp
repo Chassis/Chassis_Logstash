@@ -28,8 +28,7 @@ class chassis_logstash (
 		# Create default jvm_options using memory setting
 		$jvm_options_defaults = [
 			"-Xms${memory}m",
-			"-Xmx${memory}m",
-
+			"-Xmx${memory}m"
 		]
 
 		# Merge JVM options using our custom function
