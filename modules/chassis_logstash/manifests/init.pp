@@ -11,7 +11,7 @@ class chassis_logstash (
 	} else {
 		$defaults = {
 			'repo_version' => '7',
-			'version'      =>  '1:7.6.2-1',
+			'version'      =>  latest,
 			# Ensure Java doesn't try to eat all the RAMs by default
 			'memory'       => 256,
 			'jvm_options'  => [],
