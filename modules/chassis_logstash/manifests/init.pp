@@ -28,7 +28,9 @@ class chassis_logstash (
 		# Create default jvm_options using memory setting
 		$jvm_options_defaults = [
 			"-Xms${memory}m",
-			"-Xmx${memory}m"
+			"-Xmx${memory}m",
+			'#UseParNewGC',
+			'#UseConcMarkSweepGC'
 		]
 
 		# Merge JVM options using our custom function
@@ -42,9 +44,14 @@ class chassis_logstash (
 		}
 
 		class { 'logstash':
-			version => $options[version],
-			ensure  => present,
-			require => Class['java']
+			version     => $options[version],
+			ensure      => present,
+			require     => Class['java'],
+			jvm_options => $jvm_options,
+		}
+
+		logstash::configfile { 'syslog_config':
+			content => template('chassis_logstash/logstash-syslog.conf.erb')
 		}
 	}
 }
