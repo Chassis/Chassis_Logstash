@@ -1,5 +1,6 @@
 class chassis_logstash (
-	$config
+	$config,
+	$server_name = $config['hosts'][0]
 ) {
 	if ( ! empty( $config[disabled_extensions] ) and 'chassis/chassis_logstash' in $config[disabled_extensions] ) {
 		class { 'logstash':
